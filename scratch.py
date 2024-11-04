@@ -129,3 +129,4 @@ ax2.set_ylabel("log$_{10}(k /$s)")
 ax2.legend()
 fig2.savefig(fn + "_Arrhenius.png")
 plt.show()
+
