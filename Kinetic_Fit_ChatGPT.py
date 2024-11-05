@@ -10,7 +10,7 @@ np.random.seed(123)
 # Daten einlesen
 fn = "kineticsAlAcAc_dm_0"
 dat0 = pd.read_csv("T_XAlacac3_tau_Data.csv", sep=";")
-anfang = 1
+anfang = 0
 ende = 12
 all_temp = dat0['Centerline T in K'].values[anfang:ende]
 all_times = dat0['Mean Residence Time ms'].values[anfang:ende] / 1000
