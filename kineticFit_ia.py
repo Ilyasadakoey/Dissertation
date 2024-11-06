@@ -28,7 +28,6 @@ all_times = dat0['Mean Residence Time ms'].values[anfang: ende] / 1000 # geände
 all_x = (dat0['XAlacac3'] / dat0['XAlacac3'][0]).values[anfang: ende]
 
 
-
 def k_arrhenius(A,Ea,T):
     return A*np.exp(-Ea/(8.314*T))
 
