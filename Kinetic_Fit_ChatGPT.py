@@ -52,7 +52,6 @@ def calculate_covariance(loesls, num_params, num_meas):
     jtj_inv = np.matmul(r_inv, r_inv.T)
     return SER ** 2 * jtj_inv, SER
 
-
 lower_bounds = [1e3, 1e4, 1e6, 4e4]    # Untere Grenzen der Parameter [As, Eas, Ag, Eag]
 upper_bounds = [1e6, 5e4, 1e9, 8e4]    # Obere Grenzen der Parameter [As, Eas, Ag, Eag]
 
