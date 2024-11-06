@@ -21,10 +21,10 @@ trials = 57
 mu_real = .3 # unknown value in a real experiment
 sig_real = .025
 dat0 =pd.read_csv("T_XAlacac3_tau_Data.csv", sep=";")
-anfang=1
+anfang=0
 ende=12
 all_temp = dat0['Centerline T in K'].values[anfang: ende]
-all_times = dat0['Mean Residence Time ms'].values[anfang: ende] / 1000 # geändert auf Mean Residence Time IA
+all_times = dat0['Mean Residence Time ms'].values[anfang: ende] / 1000
 all_x = (dat0['XAlacac3'] / dat0['XAlacac3'][0]).values[anfang: ende]
 
 
