@@ -1,68 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[9]:
-
-
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-from scipy.signal import find_peaks, savgol_filter
-from scipy.integrate import simpson
-
-# Datei einlesen, Start nach "Mass / Counts"
-with open("017_210sccm_TR400_MS.asc", encoding="utf-8", errors="ignore") as f:
-    lines = f.readlines()
-
-# Finde Startindex
-start_index = next(i for i, line in enumerate(lines) if "Mass / Counts" in line) + 1
-
-# Lade relevante Daten
-data = [line.strip().split("\t") for line in lines[start_index:] if line.strip()]
-mz = np.array([float(row[0]) for row in data])
-intensity = np.array([float(row[1]) for row in data])
-
-#Signal glätten
-intensity_smooth = savgol_filter(intensity, window_length = 11, polyorder = 3)
-
-
-# Peaks finden
-peaks, _ = find_peaks(intensity_smooth, height=10, distance=1000)
-
-# Peaks integrieren
-window = 3
-peak_data = []
-for peak in peaks:
-    start = max(peak - window, 0)
-    end = min(peak + window + 1, len(mz))
-    area = simpson(intensity[start:end], mz[start:end])
-    peak_data.append({'m/z': mz[peak], 'area': area})
-
-peak_df = pd.DataFrame(peak_data)
-display(peak_df)
-
-# Plot
-#plt.figure(figsize=(12, 5))
-#plt.plot(mz, intensity, label="Massenspektrum")
-#plt.plot(mz[peaks], intensity[peaks], "rx", label="Gefundene Peaks")
-#for d in peak_data:
- #   plt.text(d['m/z'], max(intensity)*0.05 + intensity[mz.tolist().index(d['m/z'])],
-  #           f"{d['m/z']:.1f}\nA={d['area']:.1f}", ha='center', fontsize=8)
-#plt.xlabel("m/z")
-#plt.ylabel("Intensität")
-#plt.title("Massenspektrum mit integrierten Peaks")
-#plt.legend()
-#plt.tight_layout()
-#plt.show()
-
-
-
-# Speichern
-peak_df.to_csv("integrierte_peaks.csv", index=False)
-
-
-# In[3]:
-
 
 import os
 import re
@@ -155,7 +90,6 @@ else:
     print("⚠️ Keine Peaks aus irgendeiner Datei gefunden. CSV wurde nicht gespeichert.")
 
 
-# In[ ]:
 
 
 
